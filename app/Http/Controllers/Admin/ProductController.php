@@ -28,7 +28,6 @@ class ProductController extends Controller
     public function create()
     {
         return view('admin.products.create');
-
     }
 
     /**
@@ -72,7 +71,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit',compact('product'));
     }
 
     /**
@@ -84,7 +83,18 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        #dd($request->all());
+        $data =[
+            "name" => $request->name,
+            "price" => $request->price, 
+            "img" => $request->img, 
+            "in_stock" => $request->in_stock, 
+            "weight" => $request->weight, 
+            "product_code" => $request->product_code, 
+            "description" => $request->description, 
+        ];
+        $product->update($data);
+        return to_route('admin.products.index')->with('message','is upadate');
     }
 
     /**
@@ -95,6 +105,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return to_route('admin.products.index')->with('message','is delete');
     }
 }
