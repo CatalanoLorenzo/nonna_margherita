@@ -1,6 +1,14 @@
 @extends('layouts.app');
 @section('title','Admin:Table Products')
 @section('content')
+
+@if (session('message'))
+<div class="alert alert-success" role="alert">
+    <strong>{{session('message')}}</strong>
+</div>
+@endif
+
+<a name="" id="" class="btn btn-primary" href="{{route('admin.products.create')}}" role="button">New Product +</a>
     <div class="table-responsive">
         <table class="table table-striped
         table-hover	
@@ -30,7 +38,9 @@
                         <td>{{$product->in_stock}}</td>
                         <td>{{$product->weight}}</td>
                         <td>{{$product->product_code}}</td>
-                        <td>VIEW/EDIT/DELETE</td>
+                        <td>
+                        <a name="" id="" class="btn btn-primary" href="{{route('admin.products.show',$product->id)}}" role="button">View</a>    
+                        VIEW/EDIT/DELETE</td>
                     </tr>
                     @empty
                     <tr class="table-primary" >
